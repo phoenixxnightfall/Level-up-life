@@ -1,20 +1,20 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-// ─── STORAGE ───────────────────────────────────────────────────────────────
+// â”€â”€â”€ STORAGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const STORAGE_KEY = "lul_v2";
 const save = (data) => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e){} };
 const load = () => { try { const d = localStorage.getItem(STORAGE_KEY); return d ? JSON.parse(d) : null; } catch(e){ return null; } };
 
-// ─── CONSTANTS ─────────────────────────────────────────────────────────────
+// â”€â”€â”€ CONSTANTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const DEFAULT_SKILLS = [
-  { id: "focus",       name: "Focus",       icon: "🧠", color: "#7DF9FF", xp: 0 },
-  { id: "discipline",  name: "Discipline",  icon: "💪", color: "#FF6B6B", xp: 0 },
-  { id: "learning",    name: "Learning",    icon: "📚", color: "#FFD93D", xp: 0 },
-  { id: "mindfulness", name: "Mindfulness", icon: "🧘", color: "#6BCB77", xp: 0 },
-  { id: "social",      name: "Social",      icon: "🗣", color: "#FF922B", xp: 0 },
+  { id: "focus",       name: "Focus",       icon: "ðŸ§ ", color: "#7DF9FF", xp: 0 },
+  { id: "discipline",  name: "Discipline",  icon: "ðŸ’ª", color: "#FF6B6B", xp: 0 },
+  { id: "learning",    name: "Learning",    icon: "ðŸ“š", color: "#FFD93D", xp: 0 },
+  { id: "mindfulness", name: "Mindfulness", icon: "ðŸ§˜", color: "#6BCB77", xp: 0 },
+  { id: "social",      name: "Social",      icon: "ðŸ—£", color: "#FF922B", xp: 0 },
 ];
 
-const ICON_OPTIONS = ["🧠","💪","📚","🧘","🗣","⚡","🎯","🏃","🎨","🔬","💡","🎵","🌱","🔥","🧪","🏋","🎭","🌍","💻","🤝"];
+const ICON_OPTIONS = ["ðŸ§ ","ðŸ’ª","ðŸ“š","ðŸ§˜","ðŸ—£","âš¡","ðŸŽ¯","ðŸƒ","ðŸŽ¨","ðŸ”¬","ðŸ’¡","ðŸŽµ","ðŸŒ±","ðŸ”¥","ðŸ§ª","ðŸ‹","ðŸŽ­","ðŸŒ","ðŸ’»","ðŸ¤"];
 const COLOR_OPTIONS = ["#7DF9FF","#FF6B6B","#FFD93D","#6BCB77","#FF922B","#C77DFF","#FF61D2","#00F5A0","#F7971E","#56CCF2"];
 
 const TITLES = [
@@ -65,42 +65,42 @@ const DEFAULT_STATE = () => ({
   seenTrailer: false,
 });
 
-// ─── TRAILER ───────────────────────────────────────────────────────────────
+// â”€â”€â”€ TRAILER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const TRAILER_SLIDES = [
   {
-    icon: "⚔️",
+    icon: "âš”ï¸",
     title: "YOUR LIFE IS THE GAME",
     sub: "Most people play video games to level up fictional characters.",
     accent: "#7DF9FF",
-    particles: ["XP", "+50", "LVL UP", "★"],
+    particles: ["XP", "+50", "LVL UP", "â˜…"],
   },
   {
-    icon: "🎯",
+    icon: "ðŸŽ¯",
     title: "WHAT IF YOU LEVELED UP YOURSELF?",
-    sub: "Every habit, every study session, every workout — earns you real XP.",
+    sub: "Every habit, every study session, every workout â€” earns you real XP.",
     accent: "#FFD93D",
-    particles: ["📚", "💪", "🧘", "⚡"],
+    particles: ["ðŸ“š", "ðŸ’ª", "ðŸ§˜", "âš¡"],
   },
   {
-    icon: "📈",
+    icon: "ðŸ“ˆ",
     title: "BUILD YOUR SKILL TREE",
     sub: "Customize your skills. Track what matters to YOU. No two players are the same.",
     accent: "#C77DFF",
     particles: ["Focus", "Discipline", "Learning", "Growth"],
   },
   {
-    icon: "🔥",
+    icon: "ðŸ”¥",
     title: "STREAK. REWARD. REPEAT.",
-    sub: "Chains of consistency create unstoppable momentum. Break the chain — lose the streak.",
+    sub: "Chains of consistency create unstoppable momentum. Break the chain â€” lose the streak.",
     accent: "#FF6B6B",
-    particles: ["🔥x7", "🏆", "+BONUS", "🪙"],
+    particles: ["ðŸ”¥x7", "ðŸ†", "+BONUS", "ðŸª™"],
   },
   {
-    icon: "🚀",
+    icon: "ðŸš€",
     title: "YOUR JOURNEY STARTS NOW",
     sub: "Level 0. No gear. No titles. Just potential waiting to be unlocked.",
     accent: "#6BCB77",
-    particles: ["LV 0→∞", "START", "BEGIN", "GO"],
+    particles: ["LV 0â†’âˆž", "START", "BEGIN", "GO"],
   },
 ];
 
@@ -244,7 +244,7 @@ function Trailer({ onFinish }) {
             fontSize:13, fontWeight:700, cursor:"pointer",
             boxShadow:`0 0 40px ${current.accent}55`,
             letterSpacing:2,
-          }}>BEGIN YOUR JOURNEY →</button>
+          }}>BEGIN YOUR JOURNEY â†’</button>
         )}
         {slide < TRAILER_SLIDES.length - 1 && (
           <button onClick={() => setPhase("out")} style={{
@@ -252,14 +252,14 @@ function Trailer({ onFinish }) {
             borderRadius:8, padding:"10px 24px",
             color:"#888", fontFamily:"'Space Mono',monospace",
             fontSize:11, cursor:"pointer",
-          }}>SKIP →</button>
+          }}>SKIP â†’</button>
         )}
       </div>
     </div>
   );
 }
 
-// ─── SMALL COMPONENTS ──────────────────────────────────────────────────────
+// â”€â”€â”€ SMALL COMPONENTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const XPBar = ({ pct, color="#7DF9FF" }) => (
   <div style={{ height:10, background:"rgba(255,255,255,0.07)", borderRadius:5, overflow:"hidden" }}>
     <div style={{
@@ -275,7 +275,7 @@ function SkillCustomizer({ skills, onChange }) {
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({});
   const [adding, setAdding] = useState(false);
-  const [newSkill, setNewSkill] = useState({ name:"", icon:"🎯", color:COLOR_OPTIONS[0] });
+  const [newSkill, setNewSkill] = useState({ name:"", icon:"ðŸŽ¯", color:COLOR_OPTIONS[0] });
 
   const startEdit = (sk) => { setEditing(sk.id); setForm({ name:sk.name, icon:sk.icon, color:sk.color }); };
 
@@ -292,7 +292,7 @@ function SkillCustomizer({ skills, onChange }) {
   const addSkill = () => {
     if (!newSkill.name.trim()) return;
     onChange([...skills, { id: Date.now().toString(), xp:0, ...newSkill }]);
-    setNewSkill({ name:"", icon:"🎯", color:COLOR_OPTIONS[0] });
+    setNewSkill({ name:"", icon:"ðŸŽ¯", color:COLOR_OPTIONS[0] });
     setAdding(false);
   };
 
@@ -352,7 +352,7 @@ function SkillCustomizer({ skills, onChange }) {
                   flex:2, background:`${form.color}22`, border:`1px solid ${form.color}55`,
                   borderRadius:7, padding:"8px", color:form.color, fontFamily:"'Space Mono',monospace",
                   fontSize:10, cursor:"pointer",
-                }}>SAVE ✓</button>
+                }}>SAVE âœ“</button>
               </div>
             </div>
           ) : (
@@ -366,11 +366,11 @@ function SkillCustomizer({ skills, onChange }) {
                 <button onClick={()=>startEdit(sk)} style={{
                   background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)",
                   borderRadius:6, padding:"5px 9px", color:"#888", cursor:"pointer", fontSize:11,
-                }}>✎</button>
+                }}>âœŽ</button>
                 <button onClick={()=>deleteSkill(sk.id)} style={{
                   background:"rgba(255,80,80,0.06)", border:"1px solid rgba(255,80,80,0.15)",
                   borderRadius:6, padding:"5px 9px", color:"#FF6B6B", cursor:"pointer", fontSize:11,
-                }}>×</button>
+                }}>Ã—</button>
               </div>
             </div>
           )}
@@ -410,7 +410,7 @@ function SkillCustomizer({ skills, onChange }) {
               flex:2,background:`${newSkill.color}22`,border:`1px solid ${newSkill.color}55`,
               borderRadius:7,padding:"8px",color:newSkill.color,
               fontFamily:"'Space Mono',monospace",fontSize:10,cursor:"pointer",
-            }}>ADD SKILL ✓</button>
+            }}>ADD SKILL âœ“</button>
           </div>
         </div>
       ) : (
@@ -425,7 +425,7 @@ function SkillCustomizer({ skills, onChange }) {
   );
 }
 
-// ─── AI COACH ──────────────────────────────────────────────────────────────
+// â”€â”€â”€ AI COACH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function AICoach({ playerData }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -439,25 +439,4 @@ function AICoach({ playerData }) {
 The player is: Level ${getLevelInfo(playerData.totalXP).level}, ${playerData.totalXP} total XP, ${playerData.coins} coins.
 Their skills: ${playerData.skills.map(s=>`${s.name}(${s.xp}xp)`).join(", ")}.
 Active tasks: ${playerData.tasks.filter(t=>!t.done).map(t=>t.title).join(", ") || "none"}.
-Be motivating, concise, game-themed. Use XP/quest language. Max 3 sentences per reply. No asterisks for bold.`;
-
-  const send = async () => {
-    if (!input.trim() || loading) return;
-    const userMsg = { role: "user", content: input.trim() };
-    const newMsgs = [...messages, userMsg];
-    setMessages(newMsgs);
-    setInput("");
-    setLoading(true);
-    try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 256,
-          system: systemPrompt,
-          messages: newMsgs,
-        }),
-      });
-      const data = await res.json();
-      const reply = data.content?.map(c=>c.text||"").join("") || "Keep pushing
+Be motivating, concise, game-themed. Use XP/quest language. Max 3 sentences per rep
