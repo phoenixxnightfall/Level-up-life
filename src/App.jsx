@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-// ─── STORAGE ───────────────────────────────────────────────────────────────
+// ─── STORAGE ───────────────────────────────────────────────────────────
 const STORAGE_KEY = "lul_v2";
 const save = (data) => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e){} };
 const load = () => { try { const d = localStorage.getItem(STORAGE_KEY); return d ? JSON.parse(d) : null; } catch(e){ return null; } };
 
-// ─── CONSTANTS ─────────────────────────────────────────────────────────────
+// ─── CONSTANTS ──────────────────────────────────���───────────────────────
 const DEFAULT_SKILLS = [
   { id: "focus",       name: "Focus",       icon: "🧠", color: "#7DF9FF", xp: 0 },
   { id: "discipline",  name: "Discipline",  icon: "💪", color: "#FF6B6B", xp: 0 },
@@ -65,7 +65,7 @@ const DEFAULT_STATE = () => ({
   seenTrailer: false,
 });
 
-// ─── TRAILER ───────────────────────────────────────────────────────────────
+// ─── TRAILER ──────────────────────────────────────────────────────────
 const TRAILER_SLIDES = [
   {
     icon: "⚔️",
@@ -136,7 +136,7 @@ function Trailer({ onFinish }) {
       }, 600);
     }
     return () => clearTimeout(timerRef.current);
-  }, [phase]);
+  }, [phase, onFinish]);
 
   return (
     <div style={{
@@ -425,7 +425,7 @@ function SkillCustomizer({ skills, onChange }) {
   );
 }
 
-// ─── AI COACH ───────────────────────────────────────────────���──────────────
+// ─── AI COACH ───────────────────────────────────────────────────────────
 function AICoach({ playerData }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -449,9 +449,16 @@ Be motivating, concise, game-themed. Use XP/quest language. Max 3 sentences per 
     setInput("");
     setLoading(true);
     try {
+      const apiKey = process.env.REACT_APP_ANTHROPIC_API_KEY;
+      if (!apiKey) {
+        throw new Error("API key not configured");
+      }
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+        },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 256,
@@ -555,7 +562,7 @@ Be motivating, concise, game-themed. Use XP/quest language. Max 3 sentences per 
   );
 }
 
-// ─── MAIN APP ──────────────────────────────────────────────────────────────
+// ─── MAIN APP ──────────────────────────────────────────────────────────
 export default function App() {
   const [playerData, setPlayerData] = useState(null);
   const [tab, setTab] = useState("dashboard"); // dashboard | skills | tasks | settings
@@ -572,7 +579,24 @@ export default function App() {
     if (playerData) save(playerData);
   }, [playerData]);
 
-  if (!playerData) return <div style={{background:"#050510",height:"100vh",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{color:"#7DF9FF",fontFamily:"'Space Mono',monospace"}}>INITIALIZING...</div></div>;
+  if (!playerData) return (
+    <div style={{
+      background:"#050510",
+      height:"100vh",
+      display:"flex",
+      alignItems:"center",
+      justifyContent:"center"
+    }}>
+      <div style={{
+        color:"#7DF9FF",
+        fontFamily:"'Space Mono',monospace",
+        fontSize:14,
+        letterSpacing:2,
+      }}>
+        LOADING...
+      </div>
+    </div>
+  );
 
   const { level, currentXP, neededXP, pct } = getLevelInfo(playerData.totalXP);
   const titleInfo = getTitle(playerData.totalXP);
